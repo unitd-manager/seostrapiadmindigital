@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_acf_sections_spacing",
+  "info": {
+    "displayName": "Spacing (Height)"
+  },
+  "attributes": {
+    "space_height_desktop": {
+      "type": "integer"
+    },
+    "space_height_mobile": {
+      "type": "integer"
+    },
+    "background_color": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "singularName": "post",
+    "pluralName": "posts",
+    "displayName": "Post"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "acf": {
+      "type": "json"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "excerpt": {
+      "type": "richtext"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false
+    },
+    "wpPostIds": {
+      "type": "string",
+      "help": "Comma-separated WordPress post IDs to display data from (e.g., 40,81,101)"
+    },
+    "displayWpData": {
+      "type": "boolean",
+      "default": false,
+      "help": "Enable to fetch and display WordPress post data"
+    }
+  }
+}

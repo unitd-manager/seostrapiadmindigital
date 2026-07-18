@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_acf_sections_about_latest_updates_section",
+  "info": {
+    "displayName": "Latest Updates Section"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.about-latest-updates-section-items"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_acf_sections_common_heading_section",
+  "info": {
+    "displayName": "Common Heading Section With CTA"
+  },
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "highlight_title": {
+      "type": "string"
+    },
+    "seo_reality": {
+      "type": "component",
+      "component": "shared.seo-reality",
+      "repeatable": true
+    },
+    "template": {
+      "type": "enumeration",
+      "enum": [
+        "seo_reality",
+        "framework",
+        "vision_12_months"
+      ]
+    },
+    "bottom_text": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

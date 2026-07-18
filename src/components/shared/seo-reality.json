@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_seo_realities",
+  "info": {
+    "displayName": "seo_reality"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    },
+    "icon": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

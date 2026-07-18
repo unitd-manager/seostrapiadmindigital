@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_acf_sections_home_client_logo",
+  "info": {
+    "displayName": "Home Client Logo"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "logo_list": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.home-client-logo-logo-list"
+    }
+  }
+}

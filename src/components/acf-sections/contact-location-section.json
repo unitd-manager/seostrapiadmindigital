@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_acf_sections_contact_location_section",
+  "info": {
+    "displayName": "Contact Location Section"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "locations": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.contact-location-section-locations"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

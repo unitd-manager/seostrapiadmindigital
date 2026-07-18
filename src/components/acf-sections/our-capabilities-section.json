@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_acf_sections_our_capabilities_section",
+  "info": {
+    "displayName": "Our Capabilities Section"
+  },
+  "attributes": {
+    "our_capabilities": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.our-capabilities-section-our-capabilities"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

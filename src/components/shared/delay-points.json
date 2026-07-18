@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_delay_points",
+  "info": {
+    "displayName": "delay_points"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_acf_sections_text_image_split_block",
+  "info": {
+    "displayName": "Text Image Split Block"
+  },
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

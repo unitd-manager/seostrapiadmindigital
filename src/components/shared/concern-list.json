@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_concern_lists",
+  "info": {
+    "displayName": "concern_list"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

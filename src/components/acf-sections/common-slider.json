@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_acf_sections_common_slider",
+  "info": {
+    "displayName": "Common Slider"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "image_list": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.common-slider-image-list"
+    }
+  }
+}

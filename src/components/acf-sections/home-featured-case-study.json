@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_acf_sections_home_featured_case_study",
+  "info": {
+    "displayName": "Home Featured Case Study"
+  },
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "highlight_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "bottom_text": {
+      "type": "string"
+    },
+    "pricing_cards": {
+      "type": "component",
+      "component": "shared.pricing-cards",
+      "repeatable": true
+    }
+  }
+}

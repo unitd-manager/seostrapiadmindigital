@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_acf_sections_home_testimonial_highlight",
+  "info": {
+    "displayName": "Home Testimonial Highlight"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "text"
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "stats": {
+      "type": "component",
+      "component": "shared.stats",
+      "repeatable": true
+    },
+    "Testimonial_Items": {
+      "type": "component",
+      "component": "shared.testimonial-items",
+      "repeatable": true
+    }
+  }
+}

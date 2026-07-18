@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_acf_sections_usecase_industry_filter",
+  "info": {
+    "displayName": "Usecase Industry Filter"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.usecase-industry-filter-categories"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "kind": "collectionType",
+  "collectionName": "checkout_records",
+  "info": {
+    "displayName": "Checkout Record",
+    "singularName": "checkout-record",
+    "pluralName": "checkout-records"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "checkoutReference": {
+      "type": "string",
+      "unique": true
+    },
+    "provider": {
+      "type": "enumeration",
+      "enum": [
+        "razorpay"
+      ],
+      "default": "razorpay"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "initiated",
+        "order_created",
+        "paid",
+        "verification_failed",
+        "payment_failed",
+        "cancelled"
+      ],
+      "default": "initiated"
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "customerEmail": {
+      "type": "email"
+    },
+    "customerCompany": {
+      "type": "string"
+    },
+    "customerCountry": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "amountMajor": {
+      "type": "decimal"
+    },
+    "amountMinor": {
+      "type": "biginteger"
+    },
+    "itemCount": {
+      "type": "integer"
+    },
+    "items": {
+      "type": "json"
+    },
+    "sourcePage": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "razorpayOrderId": {
+      "type": "string"
+    },
+    "razorpayPaymentId": {
+      "type": "string"
+    },
+    "razorpaySignature": {
+      "type": "text"
+    },
+    "gatewayOrderPayload": {
+      "type": "json"
+    },
+    "gatewayVerifyPayload": {
+      "type": "json"
+    },
+    "rawRequest": {
+      "type": "json"
+    },
+    "errorMessage": {
+      "type": "text"
+    },
+    "verifiedAt": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_shared_testimonial_items",
+  "info": {
+    "displayName": "Testimonial-Items"
+  },
+  "options": {},
+  "attributes": {
+    "quote": {
+      "type": "richtext"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

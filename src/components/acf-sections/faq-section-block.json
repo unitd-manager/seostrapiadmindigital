@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_acf_sections_faq_section_block",
+  "info": {
+    "displayName": "FAQ Section Block"
+  },
+  "attributes": {
+    "display_options": {
+      "type": "json"
+    },
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "faq_question_and_answer": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.faq-section-block-faq-question-and-answer"
+    }
+  }
+}

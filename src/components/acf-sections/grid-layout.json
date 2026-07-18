@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_acf_sections_grid_layout",
+  "info": {
+    "displayName": "Grid Layout"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "grid_items": {
+      "type": "component",
+      "component": "acf-shared.grid-layout-grid-items",
+      "repeatable": true
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_acf_sections_common_cta",
+  "info": {
+    "displayName": "Common CTA"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "button": {
+      "type": "component",
+      "component": "shared.menu-item",
+      "repeatable": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_acf_shared_industry_highlight_block_list",
+  "info": {
+    "displayName": "Industry Highlight Block List"
+  },
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    }
+  }
+}

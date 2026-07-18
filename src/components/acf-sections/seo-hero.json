@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_acf_sections_seo_heroes",
+  "info": {
+    "displayName": "SEO Hero"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "highlighted_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "primary_button": {
+      "type": "component",
+      "component": "shared.menu-item",
+      "repeatable": false
+    },
+    "secondary_button": {
+      "type": "component",
+      "component": "shared.menu-item",
+      "repeatable": false
+    },
+    "seo_stat": {
+      "type": "component",
+      "component": "shared.stats",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

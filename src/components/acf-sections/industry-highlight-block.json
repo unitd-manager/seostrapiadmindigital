@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_acf_sections_industry_highlight_block",
+  "info": {
+    "displayName": "Industry Highlight Block"
+  },
+  "attributes": {
+    "list": {
+      "type": "component",
+      "component": "acf-shared.industry-highlight-block-list",
+      "repeatable": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "highlight_text": {
+      "type": "string"
+    }
+  }
+}

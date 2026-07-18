@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_acf_sections_package_card_section",
+  "info": {
+    "displayName": "Package Card Section"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "package_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.package-card-section-package-cards"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

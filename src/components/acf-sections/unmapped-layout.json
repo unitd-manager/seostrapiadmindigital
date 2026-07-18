@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_acf_sections_unmapped_layout",
+  "info": {
+    "displayName": "Unmapped Layout"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "card_title": {
+      "type": "string"
+    },
+    "highlight_title": {
+      "type": "string"
+    },
+    "highlight_description": {
+      "type": "blocks"
+    },
+    "delay_points": {
+      "type": "component",
+      "component": "shared.delay-points",
+      "repeatable": true
+    }
+  }
+}

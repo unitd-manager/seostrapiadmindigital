@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_acf_sections_latest_webinars",
+  "info": {
+    "displayName": "Latest Webinars"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "webinars": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.latest-webinars-webinars"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

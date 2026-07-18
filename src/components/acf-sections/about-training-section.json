@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_acf_sections_about_training_section",
+  "info": {
+    "displayName": "Training Section"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

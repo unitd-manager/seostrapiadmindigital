@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_acf_sections_hiring_process_steps_layout",
+  "info": {
+    "displayName": "Hiring Process Steps Layout"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.hiring-process-steps-layout-steps"
+    },
+    "background_color": {
+      "type": "string"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_acf_sections_roundtable_sessions_sections",
+  "info": {
+    "displayName": "Roundtable Sessions Sections"
+  },
+  "attributes": {
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "roundtables": {
+      "type": "component",
+      "repeatable": true,
+      "component": "acf-shared.roundtable-sessions-sections-roundtables"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "acf_id": {
+      "type": "string"
+    }
+  }
+}

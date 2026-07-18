@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_shared_pricing_cards",
+  "info": {
+    "displayName": "pricing_cards"
+  },
+  "options": {},
+  "attributes": {
+    "badge": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "blue",
+        "orange",
+        "purple",
+        "cyan",
+        "pink",
+        "green"
+      ]
+    },
+    "feature_list": {
+      "type": "component",
+      "component": "shared.feature-list",
+      "repeatable": true
+    },
+    "button": {
+      "type": "component",
+      "component": "shared.menu-item",
+      "repeatable": true
+    },
+    "icon": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
