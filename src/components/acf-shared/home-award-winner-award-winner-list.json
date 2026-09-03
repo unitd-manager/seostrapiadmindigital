@@ -4,17 +4,10 @@
     "displayName": "Home Award Winner Award Winner List"
   },
   "attributes": {
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "link": {
+    "menu_item": {
       "type": "component",
       "component": "shared.menu-item",
-      "repeatable": false
+      "repeatable": true
     }
   }
 }

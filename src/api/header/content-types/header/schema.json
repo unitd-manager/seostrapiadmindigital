@@ -1,0 +1,48 @@
+{
+  "kind": "singleType",
+  "collectionName": "headers",
+  "info": {
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "menu_item": {
+      "type": "component",
+      "component": "shared.menu-item",
+      "repeatable": true
+    },
+    "cart_enabled": {
+      "type": "boolean"
+    },
+    "cart_url": {
+      "type": "string"
+    },
+    "cta_label": {
+      "type": "string"
+    },
+    "cta_url": {
+      "type": "string"
+    },
+    "cta_target_blank": {
+      "type": "boolean"
+    }
+  }
+}

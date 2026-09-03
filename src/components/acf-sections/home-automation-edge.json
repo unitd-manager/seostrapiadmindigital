@@ -4,21 +4,16 @@
     "displayName": "Home Automation Edge"
   },
   "attributes": {
-    "main_title": {
+    "title": {
       "type": "string"
-    },
-    "description": {
-      "type": "richtext"
     },
     "automation_edge_list": {
       "type": "component",
-      "repeatable": true,
-      "component": "acf-shared.home-automation-edge-automation-edge-list"
+      "component": "acf-shared.home-automation-edge-automation-edge-list",
+      "repeatable": true
     },
-    "cta_button": {
-      "type": "component",
-      "component": "shared.menu-item",
-      "repeatable": false
+    "subtitle": {
+      "type": "string"
     }
   }
 }

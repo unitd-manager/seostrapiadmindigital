@@ -4,13 +4,25 @@
     "displayName": "Home Award Winner"
   },
   "attributes": {
-    "main_title": {
-      "type": "text"
+    "company_name": {
+      "type": "string"
     },
-    "award_winner_list": {
+    "description": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "copyright": {
+      "type": "string"
+    },
+    "menu_item": {
       "type": "component",
-      "repeatable": true,
-      "component": "acf-shared.home-award-winner-award-winner-list"
+      "component": "shared.menu-item",
+      "repeatable": true
+    },
+    "API_ID": {
+      "type": "string"
     }
   }
 }

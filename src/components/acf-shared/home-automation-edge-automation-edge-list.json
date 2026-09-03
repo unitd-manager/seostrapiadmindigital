@@ -4,30 +4,20 @@
     "displayName": "Home Automation Edge Automation Edge List"
   },
   "attributes": {
-    "icon": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "button_text": {
+      "type": "string"
     },
     "title": {
       "type": "string"
     },
+    "badge": {
+      "type": "string"
+    },
+    "button_url": {
+      "type": "string"
+    },
     "description": {
-      "type": "text"
-    },
-    "button": {
-      "type": "component",
-      "component": "shared.menu-item",
-      "repeatable": false
-    },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "type": "blocks"
     }
   }
 }

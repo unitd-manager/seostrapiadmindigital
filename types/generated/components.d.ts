@@ -777,9 +777,8 @@ export interface AcfSectionsHomeAutomationEdge extends Struct.ComponentSchema {
       'acf-shared.home-automation-edge-automation-edge-list',
       true
     >;
-    cta_button: Schema.Attribute.Component<'shared.menu-item', false>;
-    description: Schema.Attribute.RichText;
-    main_title: Schema.Attribute.String;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -789,11 +788,12 @@ export interface AcfSectionsHomeAwardWinner extends Struct.ComponentSchema {
     displayName: 'Home Award Winner';
   };
   attributes: {
-    award_winner_list: Schema.Attribute.Component<
-      'acf-shared.home-award-winner-award-winner-list',
-      true
-    >;
-    main_title: Schema.Attribute.Text;
+    API_ID: Schema.Attribute.String;
+    company_name: Schema.Attribute.String;
+    copyright: Schema.Attribute.String;
+    description: Schema.Attribute.String;
+    location: Schema.Attribute.String;
+    menu_item: Schema.Attribute.Component<'shared.menu-item', true>;
   };
 }
 
@@ -1434,8 +1434,8 @@ export interface AcfSectionsSessionItemSections extends Struct.ComponentSchema {
     displayName: 'Session Item Sections';
   };
   attributes: {
-    acf_id: Schema.Attribute.String;
-    class_name: Schema.Attribute.String;
+    description: Schema.Attribute.RichText;
+    eyebrow: Schema.Attribute.String;
     main_title: Schema.Attribute.String;
     session_tabs: Schema.Attribute.Component<
       'acf-shared.session-item-sections-session-tabs',
@@ -2256,10 +2256,10 @@ export interface AcfSharedHomeAutomationEdgeAutomationEdgeList
     displayName: 'Home Automation Edge Automation Edge List';
   };
   attributes: {
-    button: Schema.Attribute.Component<'shared.menu-item', false>;
-    description: Schema.Attribute.Text;
-    icon: Schema.Attribute.Media<'images'>;
-    image: Schema.Attribute.Media<'images'>;
+    badge: Schema.Attribute.String;
+    button_text: Schema.Attribute.String;
+    button_url: Schema.Attribute.String;
+    description: Schema.Attribute.Blocks;
     title: Schema.Attribute.String;
   };
 }
@@ -2271,8 +2271,7 @@ export interface AcfSharedHomeAwardWinnerAwardWinnerList
     displayName: 'Home Award Winner Award Winner List';
   };
   attributes: {
-    image: Schema.Attribute.Media<'images'>;
-    link: Schema.Attribute.Component<'shared.menu-item', false>;
+    menu_item: Schema.Attribute.Component<'shared.menu-item', true>;
   };
 }
 
@@ -2705,15 +2704,8 @@ export interface AcfSharedSessionItemSectionsSessionTabsSessions
     displayName: 'Session Item Sections Session Tabs Sessions';
   };
   attributes: {
-    session_date_day_label: Schema.Attribute.String;
     session_description: Schema.Attribute.RichText;
-    session_time: Schema.Attribute.String;
     session_title: Schema.Attribute.String;
-    speaker_company: Schema.Attribute.String;
-    speaker_image: Schema.Attribute.Media<'images'>;
-    speaker_name: Schema.Attribute.String;
-    speaker_role_label: Schema.Attribute.String;
-    speaker_title: Schema.Attribute.String;
   };
 }
 

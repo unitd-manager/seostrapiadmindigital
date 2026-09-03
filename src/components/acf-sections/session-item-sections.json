@@ -9,14 +9,14 @@
     },
     "session_tabs": {
       "type": "component",
-      "repeatable": true,
-      "component": "acf-shared.session-item-sections-session-tabs"
+      "component": "acf-shared.session-item-sections-session-tabs",
+      "repeatable": true
     },
-    "class_name": {
+    "eyebrow": {
       "type": "string"
     },
-    "acf_id": {
-      "type": "string"
+    "description": {
+      "type": "richtext"
     }
   }
 }
