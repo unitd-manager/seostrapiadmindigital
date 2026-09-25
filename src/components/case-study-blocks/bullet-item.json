@@ -1,0 +1,7 @@
+{
+  "collectionName": "components_case_study_blocks_bullet_items",
+  "info": { "displayName": "Bullet Item", "icon": "bulletList" },
+  "attributes": {
+    "text": { "type": "text", "required": true }
+  }
+}

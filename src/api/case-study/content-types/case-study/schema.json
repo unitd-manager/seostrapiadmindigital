@@ -37,6 +37,130 @@
       "type": "component",
       "component": "shared.seo",
       "repeatable": false
-    }
-  }
+    },
+
+    "eyebrow": {
+      "type": "string"
+    },
+
+    "hero_title": {
+      "type": "string"
+    },
+    "hero_highlight_word": {
+      "type": "string"
+    },
+    "hero_description": {
+      "type": "text"
+    },
+    "hero_stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.stat-item"
+    },
+
+    "overview_title": {
+      "type": "string",
+      "default": "Overview"
+    },
+    "overview_points": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.bullet-item"
+    },
+
+    "challenge_title": {
+      "type": "string",
+      "default": "Challenge"
+    },
+    "challenge_intro": {
+      "type": "text"
+    },
+    "challenge_items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.numbered-item"
+    },
+
+    "strategy_title": {
+      "type": "string",
+      "default": "SEO Strategy Implemented"
+    },
+    "strategy_intro": {
+      "type": "text"
+    },
+    "strategy_featured_title": {
+      "type": "string"
+    },
+    "strategy_featured_description": {
+      "type": "text"
+    },
+    "strategy_key_improvements": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.bullet-item"
+    },
+    "strategy_phases": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.phase-item"
+    },
+
+    "results_title": {
+      "type": "string",
+      "default": "Results"
+    },
+    "results_intro": {
+      "type": "text"
+    },
+    "results_stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.result-stat-item"
+    },
+
+    "why_worked_title": {
+      "type": "string",
+      "default": "Why The Strategy Worked"
+    },
+    "why_worked_intro": {
+      "type": "text"
+    },
+    "why_worked_points": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.bullet-item"
+    },
+    "why_worked_closing": {
+      "type": "richtext"
+    },
+
+    "looking_ahead_title": {
+      "type": "string",
+      "default": "Looking Ahead"
+    },
+    "looking_ahead_content": {
+      "type": "richtext"
+    },
+
+    "conclusion_title": {
+      "type": "string",
+      "default": "Conclusion"
+    },
+    "conclusion_content": {
+      "type": "richtext"
+    },
+    
+"key_results_title": { "type": "string" },
+"key_results_stats": {
+  "type": "component",
+  "repeatable": true,
+  "component": "case-study-blocks.stat-item"
+},
+"key_results_highlight_heading": { "type": "string" },
+"key_results_highlight_label": { "type": "string" },
+
+"services_provided": { "type": "text" },
+"agency": { "type": "string" },
+"campaign_focus": { "type": "text" }
+}
 }

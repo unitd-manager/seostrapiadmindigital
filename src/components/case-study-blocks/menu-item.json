@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_case_study_blocks_menu_items",
+  "info": {
+    "displayName": "menu_item"
+  },
+  "options": {},
+  "attributes": {
+    "nav": {
+      "type": "string"
+    },
+    "next_link": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

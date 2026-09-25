@@ -45,6 +45,8 @@ const CAREER_COMPONENTS = new Set([
   'acf-sections.career-openings-section',
   'acf-sections.form-with-contact-info',
   'acf-sections.contact-location-section',
+  'acf-sections.contact-form',
+  'acf-sections.seo-audit-form',
 ]);
 
 const RESOURCE_COMPONENTS = new Set([

@@ -1,0 +1,61 @@
+{
+  "collectionName": "components_acf_sections_contact_forms",
+  "info": {
+    "displayName": "Contact Form"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "cta_text": {
+      "type": "string"
+    },
+    "cta_link_label": {
+      "type": "string"
+    },
+    "cta_link_url": {
+      "type": "string"
+    },
+    "get_in_touch_title": {
+      "type": "string"
+    },
+    "get_in_touch_details": {
+      "type": "blocks"
+    },
+    "contact_form_title": {
+      "type": "string"
+    },
+    "success_message": {
+      "type": "string"
+    },
+    "form_footer_note": {
+      "type": "string"
+    },
+    "name_placeholder": {
+      "type": "string"
+    },
+    "email_placeholder": {
+      "type": "string"
+    },
+    "subject_placeholder": {
+      "type": "string"
+    },
+    "message_placeholder": {
+      "type": "string"
+    },
+    "submit_button_text": {
+      "type": "string"
+    },
+    "submit_button_loading_text": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

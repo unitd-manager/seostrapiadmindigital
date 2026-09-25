@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_case_study_blocks_phase_items",
+  "info": {
+    "displayName": "Phase Item",
+    "icon": "layer"
+  },
+  "attributes": {
+    "phase_label": {
+      "type": "string",
+      "required": true
+    },
+    "phase_title": {
+      "type": "string",
+      "required": true
+    },
+    "intro": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "items_label": {
+      "type": "string",
+      "default": "Key Improvements Included"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "case-study-blocks.bullet-item"
+    },
+    "closing_text": {
+      "type": "text"
+    },
+    "default_active": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

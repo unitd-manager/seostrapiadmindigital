@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <title>SEO Audit Form</title>
+
+  <style>
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #111827;
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h2 { margin-bottom: 10px; }
+
+    p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    button {
+      display: block;
+      width: auto;
+      padding: 10px 24px;
+      margin: 20px auto 0;
+      background: #facc15;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    #formFields.loading::after {
+      content: "Loading form...";
+      color: #888;
+      font-size: 14px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h2>Get Your Free SEO Audit Report</h2>
+
+    <p>
+      Enter your details and we’ll send your SEO report within 24 hours.
+    </p>
+
+    <form id="seoForm">
+
+      <div id="formFields" class="loading"></div>
+
+      <button type="submit" id="submitBtn" disabled>
+        Get My Report
+      </button>
+
+    </form>
+
+  </div>
+
+  <script>
+
+    // ---- Config ----
+    const STRAPI_URL = "http://localhost:1337";           // your Strapi instance
+    const STRAPI_FORM_ENDPOINT = STRAPI_URL + "/api/seo-audit-form?populate=fields";
+    const API_ENDPOINT = "http://localhost:4000/api/seo-audit"; // mailer backend
+
+    const websitePattern = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
+    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+    let fieldConfig = [];
+
+    function validators(type) {
+      if (type === "email") return emailPattern;
+      if (type === "url") return websitePattern;
+      return null;
+    }
+
+    async function loadFormFields() {
+
+      const container = document.getElementById("formFields");
+      const submitBtn = document.getElementById("submitBtn");
+
+      try {
+
+        const res = await fetch(STRAPI_FORM_ENDPOINT);
+        const json = await res.json();
+
+        // Strapi v5 flattens attributes onto data directly
+        const rawFields = json?.data?.fields || [];
+
+        fieldConfig = [...rawFields].sort(
+          (a, b) => (a.order ?? 0) - (b.order ?? 0)
+        );
+
+        container.classList.remove("loading");
+        container.innerHTML = fieldConfig
+          .map(
+            (f) => `
+              <input
+                type="${f.type === "url" ? "text" : f.type}"
+                id="${f.name}"
+                name="${f.name}"
+                placeholder="${f.placeholder || f.label}"
+                ${f.required ? "required" : ""}
+              />
+            `
+          )
+          .join("");
+
+        submitBtn.disabled = false;
+
+      } catch (err) {
+
+        console.log("Failed to load form fields from Strapi:", err);
+        container.classList.remove("loading");
+        container.innerHTML =
+          '<p style="color:#f87171;">Could not load the form. Please refresh.</p>';
+
+      }
+
+    }
+
+    loadFormFields();
+
+    document
+      .getElementById("seoForm")
+      .addEventListener("submit", async function (e) {
+
+      e.preventDefault();
+
+      const submitBtn = document.getElementById("submitBtn");
+      const values = {};
+
+      for (const f of fieldConfig) {
+
+        const el = document.getElementById(f.name);
+        const value = el.value.trim();
+
+        if (f.required && !value) {
+          alert(`Please fill in ${f.label || f.name}.`);
+          return;
+        }
+
+        const pattern = validators(f.type);
+        if (value && pattern && !pattern.test(f.type === "email" ? value.toLowerCase() : value)) {
+          alert(`Please enter a valid ${f.label || f.name}.`);
+          return;
+        }
+
+        values[f.name] = f.type === "email" ? value.toLowerCase() : value;
+
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      try {
+
+        const response = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.message || "Failed to send request.");
+        }
+
+        alert("SEO Audit Request Sent Successfully!");
+        document.getElementById("seoForm").reset();
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = "https://seo.unitdtechnologies.com/";
+
+      } catch (error) {
+
+        console.log("FAILED...", error);
+        alert("Failed to send request.");
+
+      } finally {
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Get My Report";
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>

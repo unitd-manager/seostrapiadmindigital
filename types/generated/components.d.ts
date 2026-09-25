@@ -473,6 +473,32 @@ export interface AcfSectionsCommonSlider extends Struct.ComponentSchema {
   };
 }
 
+export interface AcfSectionsContactForm extends Struct.ComponentSchema {
+  collectionName: 'components_acf_sections_contact_forms';
+  info: {
+    displayName: 'Contact Form';
+  };
+  attributes: {
+    contact_form_title: Schema.Attribute.String;
+    cta_link_label: Schema.Attribute.String;
+    cta_link_url: Schema.Attribute.String;
+    cta_text: Schema.Attribute.String;
+    description: Schema.Attribute.Blocks;
+    email_placeholder: Schema.Attribute.String;
+    eyebrow: Schema.Attribute.String;
+    form_footer_note: Schema.Attribute.String;
+    get_in_touch_details: Schema.Attribute.Blocks;
+    get_in_touch_title: Schema.Attribute.String;
+    main_title: Schema.Attribute.String;
+    message_placeholder: Schema.Attribute.String;
+    name_placeholder: Schema.Attribute.String;
+    subject_placeholder: Schema.Attribute.String;
+    submit_button_loading_text: Schema.Attribute.String;
+    submit_button_text: Schema.Attribute.String;
+    success_message: Schema.Attribute.String;
+  };
+}
+
 export interface AcfSectionsContactLocationSection
   extends Struct.ComponentSchema {
   collectionName: 'components_acf_sections_contact_location_section';
@@ -1391,6 +1417,36 @@ export interface AcfSectionsSectionSpacePadding extends Struct.ComponentSchema {
   };
 }
 
+export interface AcfSectionsSeo extends Struct.ComponentSchema {
+  collectionName: 'components_acf_sections_seos';
+  info: {
+    displayName: 'seo';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    order: Schema.Attribute.Integer;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean;
+    type: Schema.Attribute.Enumeration<['text', 'email', 'url', 'tel']>;
+  };
+}
+
+export interface AcfSectionsSeoAuditForm extends Struct.ComponentSchema {
+  collectionName: 'components_acf_sections_seo_audit_forms';
+  info: {
+    displayName: 'SEO Audit Form';
+  };
+  attributes: {
+    description: Schema.Attribute.String;
+    error_message: Schema.Attribute.String;
+    main_title: Schema.Attribute.String;
+    SEO: Schema.Attribute.Component<'acf-sections.seo', true>;
+    submit_label: Schema.Attribute.String;
+    success_message: Schema.Attribute.String;
+  };
+}
+
 export interface AcfSectionsSeoHero extends Struct.ComponentSchema {
   collectionName: 'components_acf_sections_seo_heroes';
   info: {
@@ -1434,6 +1490,9 @@ export interface AcfSectionsSessionItemSections extends Struct.ComponentSchema {
     displayName: 'Session Item Sections';
   };
   attributes: {
+    cta_link_label: Schema.Attribute.String;
+    cta_link_url: Schema.Attribute.String;
+    cta_text: Schema.Attribute.String;
     description: Schema.Attribute.RichText;
     eyebrow: Schema.Attribute.String;
     main_title: Schema.Attribute.String;
@@ -2978,6 +3037,95 @@ export interface AcfSharedWhyKognitosSectionBenefits
   };
 }
 
+export interface CaseStudyBlocksBulletItem extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_blocks_bullet_items';
+  info: {
+    displayName: 'Bullet Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    text: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface CaseStudyBlocksMenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_blocks_menu_items';
+  info: {
+    displayName: 'menu_item';
+  };
+  attributes: {
+    nav: Schema.Attribute.String;
+    next_link: Schema.Attribute.String;
+  };
+}
+
+export interface CaseStudyBlocksNumberedItem extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_blocks_numbered_items';
+  info: {
+    displayName: 'Numbered Item';
+    icon: 'list';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    more_link_label: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Read More'>;
+    more_link_url: Schema.Attribute.String;
+    number: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface CaseStudyBlocksPhaseItem extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_blocks_phase_items';
+  info: {
+    displayName: 'Phase Item';
+    icon: 'layer';
+  };
+  attributes: {
+    closing_text: Schema.Attribute.Text;
+    default_active: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    description: Schema.Attribute.Text;
+    intro: Schema.Attribute.Text;
+    items: Schema.Attribute.Component<'case-study-blocks.bullet-item', true>;
+    items_label: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Key Improvements Included'>;
+    phase_label: Schema.Attribute.String & Schema.Attribute.Required;
+    phase_title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface CaseStudyBlocksResultStatItem extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_blocks_result_stat_items';
+  info: {
+    displayName: 'Result Stat Item';
+    icon: 'chart-bubble';
+  };
+  attributes: {
+    badge_label: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Result'>;
+    badge_text: Schema.Attribute.String;
+    closing_text: Schema.Attribute.Text;
+    description: Schema.Attribute.Text;
+    expanded_content: Schema.Attribute.RichText;
+    heading: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    sub_heading: Schema.Attribute.String;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface CaseStudyBlocksStatItem extends Struct.ComponentSchema {
+  collectionName: 'components_case_study_blocks_stat_items';
+  info: {
+    displayName: 'Stat Item';
+    icon: 'chart-line';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SectionsCta extends Struct.ComponentSchema {
   collectionName: 'components_sections_ctas';
   info: {
@@ -3203,6 +3351,7 @@ declare module '@strapi/strapi' {
       'acf-sections.common-heading-section': AcfSectionsCommonHeadingSection;
       'acf-sections.common-posts-slider': AcfSectionsCommonPostsSlider;
       'acf-sections.common-slider': AcfSectionsCommonSlider;
+      'acf-sections.contact-form': AcfSectionsContactForm;
       'acf-sections.contact-location-section': AcfSectionsContactLocationSection;
       'acf-sections.content-highlight-block': AcfSectionsContentHighlightBlock;
       'acf-sections.content-image-split-block': AcfSectionsContentImageSplitBlock;
@@ -3246,6 +3395,8 @@ declare module '@strapi/strapi' {
       'acf-sections.roundtable-sessions-sections': AcfSectionsRoundtableSessionsSections;
       'acf-sections.section-heading-with-columns': AcfSectionsSectionHeadingWithColumns;
       'acf-sections.section-space-padding': AcfSectionsSectionSpacePadding;
+      'acf-sections.seo': AcfSectionsSeo;
+      'acf-sections.seo-audit-form': AcfSectionsSeoAuditForm;
       'acf-sections.seo-hero': AcfSectionsSeoHero;
       'acf-sections.service-overview': AcfSectionsServiceOverview;
       'acf-sections.session-item-sections': AcfSectionsSessionItemSections;
@@ -3349,6 +3500,12 @@ declare module '@strapi/strapi' {
       'acf-shared.usecase-industry-filter-categories': AcfSharedUsecaseIndustryFilterCategories;
       'acf-shared.white-paper-single-related-white-papers': AcfSharedWhitePaperSingleRelatedWhitePapers;
       'acf-shared.why-kognitos-section-benefits': AcfSharedWhyKognitosSectionBenefits;
+      'case-study-blocks.bullet-item': CaseStudyBlocksBulletItem;
+      'case-study-blocks.menu-item': CaseStudyBlocksMenuItem;
+      'case-study-blocks.numbered-item': CaseStudyBlocksNumberedItem;
+      'case-study-blocks.phase-item': CaseStudyBlocksPhaseItem;
+      'case-study-blocks.result-stat-item': CaseStudyBlocksResultStatItem;
+      'case-study-blocks.stat-item': CaseStudyBlocksStatItem;
       'sections.cta': SectionsCta;
       'sections.faq-section': SectionsFaqSection;
       'sections.features': SectionsFeatures;

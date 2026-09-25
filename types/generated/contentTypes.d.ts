@@ -440,38 +440,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
-  collectionName: 'authors';
-  info: {
-    displayName: 'Author';
-    pluralName: 'authors';
-    singularName: 'author';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    avatar: Schema.Attribute.Media;
-    bio: Schema.Attribute.RichText;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    designation: Schema.Attribute.String;
-    email: Schema.Attribute.Email;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::author.author'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
   collectionName: 'case_studies';
   info: {
@@ -483,57 +451,90 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    agency: Schema.Attribute.String;
+    campaign_focus: Schema.Attribute.Text;
     challenge: Schema.Attribute.RichText;
+    challenge_intro: Schema.Attribute.Text;
+    challenge_items: Schema.Attribute.Component<
+      'case-study-blocks.numbered-item',
+      true
+    >;
+    challenge_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Challenge'>;
     client: Schema.Attribute.String;
+    conclusion_content: Schema.Attribute.RichText;
+    conclusion_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Conclusion'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    eyebrow: Schema.Attribute.String;
     featuredImage: Schema.Attribute.Media;
+    hero_description: Schema.Attribute.Text;
+    hero_highlight_word: Schema.Attribute.String;
+    hero_stats: Schema.Attribute.Component<'case-study-blocks.stat-item', true>;
+    hero_title: Schema.Attribute.String;
     industry: Schema.Attribute.String;
+    key_results_highlight_heading: Schema.Attribute.String;
+    key_results_highlight_label: Schema.Attribute.String;
+    key_results_stats: Schema.Attribute.Component<
+      'case-study-blocks.stat-item',
+      true
+    >;
+    key_results_title: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::case-study.case-study'
     > &
       Schema.Attribute.Private;
+    looking_ahead_content: Schema.Attribute.RichText;
+    looking_ahead_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Looking Ahead'>;
+    overview_points: Schema.Attribute.Component<
+      'case-study-blocks.bullet-item',
+      true
+    >;
+    overview_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Overview'>;
     publishedAt: Schema.Attribute.DateTime;
     results: Schema.Attribute.RichText;
+    results_intro: Schema.Attribute.Text;
+    results_stats: Schema.Attribute.Component<
+      'case-study-blocks.result-stat-item',
+      true
+    >;
+    results_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Results'>;
     seo: Schema.Attribute.Component<'shared.seo', false>;
+    services_provided: Schema.Attribute.Text;
     slug: Schema.Attribute.UID<'title'>;
     solution: Schema.Attribute.RichText;
+    strategy_featured_description: Schema.Attribute.Text;
+    strategy_featured_title: Schema.Attribute.String;
+    strategy_intro: Schema.Attribute.Text;
+    strategy_key_improvements: Schema.Attribute.Component<
+      'case-study-blocks.bullet-item',
+      true
+    >;
+    strategy_phases: Schema.Attribute.Component<
+      'case-study-blocks.phase-item',
+      true
+    >;
+    strategy_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'SEO Strategy Implemented'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
-  info: {
-    displayName: 'Category';
-    pluralName: 'categories';
-    singularName: 'category';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
+    why_worked_closing: Schema.Attribute.RichText;
+    why_worked_intro: Schema.Attribute.Text;
+    why_worked_points: Schema.Attribute.Component<
+      'case-study-blocks.bullet-item',
+      true
+    >;
+    why_worked_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Why The Strategy Worked'>;
   };
 }
 
@@ -598,26 +599,32 @@ export interface ApiCheckoutRecordCheckoutRecord
   };
 }
 
-export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
-  collectionName: 'faqs';
+export interface ApiFooterFooter extends Struct.SingleTypeSchema {
+  collectionName: 'footers';
   info: {
-    displayName: 'Faq';
-    pluralName: 'faqs';
-    singularName: 'faq';
+    displayName: 'Footer';
+    pluralName: 'footers';
+    singularName: 'footer';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    answer: Schema.Attribute.RichText;
+    company_name: Schema.Attribute.String;
+    copyright: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'> &
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::footer.footer'
+    > &
       Schema.Attribute.Private;
+    location: Schema.Attribute.String;
+    menu_item: Schema.Attribute.Component<'case-study-blocks.menu-item', true>;
     publishedAt: Schema.Attribute.DateTime;
-    question: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -681,6 +688,7 @@ export interface ApiLeadLead extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    subject: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -791,6 +799,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'acf-sections.career-openings-section',
         'acf-sections.form-with-contact-info',
         'acf-sections.contact-location-section',
+        'acf-sections.contact-form',
+        'acf-sections.seo-audit-form',
         'acf-sections.image-text-feature-boxes',
         'acf-sections.impact-highlights-section',
         'acf-sections.partner-showcase-block',
@@ -824,38 +834,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiPostPost extends Struct.CollectionTypeSchema {
-  collectionName: 'posts';
-  info: {
-    displayName: 'Post';
-    pluralName: 'posts';
-    singularName: 'post';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    acf: Schema.Attribute.JSON;
-    content: Schema.Attribute.RichText;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    displayWpData: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    excerpt: Schema.Attribute.RichText;
-    featuredImage: Schema.Attribute.Media;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    wpPostIds: Schema.Attribute.String;
-  };
-}
-
 export interface ApiRedirectRedirect extends Struct.CollectionTypeSchema {
   collectionName: 'redirects';
   info: {
@@ -880,158 +858,6 @@ export interface ApiRedirectRedirect extends Struct.CollectionTypeSchema {
     oldUrl: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     statusCode: Schema.Attribute.Integer;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiResourcePageResourcePage
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'resource_pages';
-  info: {
-    displayName: 'Resource Page';
-    pluralName: 'resource-pages';
-    singularName: 'resource-page';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    acf: Schema.Attribute.JSON;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    legacyPageDocumentId: Schema.Attribute.String;
-    legacyPageId: Schema.Attribute.Integer;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::resource-page.resource-page'
-    > &
-      Schema.Attribute.Private;
-    pageBuilder: Schema.Attribute.DynamicZone<
-      [
-        'sections.hero',
-        'sections.cta',
-        'acf-sections.banner-layout',
-        'acf-sections.blog-layout',
-        'acf-sections.common-cta',
-        'acf-sections.footer-common-cta',
-        'acf-sections.latest-post',
-        'acf-sections.latest-webinars',
-        'acf-sections.featured-webinars-media',
-        'acf-sections.common-posts-slider',
-        'acf-sections.classic-post-slider',
-        'acf-sections.resource-grid-layout',
-        'acf-sections.use-cases-grid',
-        'acf-sections.use-case-single',
-        'acf-sections.white-paper-single',
-        'acf-sections.usecase-industry-filter',
-        'acf-sections.usecase-highlight-block',
-        'acf-sections.timeline-sections',
-        'acf-sections.session-item-sections',
-        'acf-sections.roundtable-sessions-sections',
-        'acf-sections.spacing',
-        'acf-sections.section-space-padding',
-        'acf-sections.unmapped-layout',
-      ]
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiServiceService extends Struct.CollectionTypeSchema {
-  collectionName: 'services';
-  info: {
-    displayName: 'Service';
-    pluralName: 'services';
-    singularName: 'service';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    banner: Schema.Attribute.Media;
-    content: Schema.Attribute.RichText;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    icon: Schema.Attribute.Media;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::service.service'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    seo: Schema.Attribute.Component<'shared.seo', false>;
-    shortDescription: Schema.Attribute.Text;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTagTag extends Struct.CollectionTypeSchema {
-  collectionName: 'tags';
-  info: {
-    displayName: 'Tag';
-    pluralName: 'tags';
-    singularName: 'tag';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
-  collectionName: 'testimonials';
-  info: {
-    displayName: 'Testimonial';
-    pluralName: 'testimonials';
-    singularName: 'testimonial';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    company: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    designation: Schema.Attribute.String;
-    image: Schema.Attribute.Media;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::testimonial.testimonial'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    testimonial: Schema.Attribute.RichText;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1589,20 +1415,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::author.author': ApiAuthorAuthor;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
-      'api::category.category': ApiCategoryCategory;
       'api::checkout-record.checkout-record': ApiCheckoutRecordCheckoutRecord;
-      'api::faq.faq': ApiFaqFaq;
+      'api::footer.footer': ApiFooterFooter;
       'api::header.header': ApiHeaderHeader;
       'api::lead.lead': ApiLeadLead;
       'api::page.page': ApiPagePage;
-      'api::post.post': ApiPostPost;
       'api::redirect.redirect': ApiRedirectRedirect;
-      'api::resource-page.resource-page': ApiResourcePageResourcePage;
-      'api::service.service': ApiServiceService;
-      'api::tag.tag': ApiTagTag;
-      'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::wordpress-post.wordpress-post': ApiWordpressPostWordpressPost;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

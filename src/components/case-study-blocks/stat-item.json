@@ -1,0 +1,8 @@
+{
+  "collectionName": "components_case_study_blocks_stat_items",
+  "info": { "displayName": "Stat Item", "icon": "chart-line" },
+  "attributes": {
+    "value": { "type": "string", "required": true },
+    "label": { "type": "string", "required": true }
+  }
+}

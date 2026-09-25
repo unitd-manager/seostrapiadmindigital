@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_acf_sections_seo_audit_forms",
+  "info": {
+    "displayName": "SEO Audit Form"
+  },
+  "options": {},
+  "attributes": {
+    "SEO": {
+      "type": "component",
+      "component": "acf-sections.seo",
+      "repeatable": true
+    },
+    "main_title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "success_message": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "submit_label": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

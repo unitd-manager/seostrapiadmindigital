@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_case_study_blocks_result_stat_items",
+  "info": {
+    "displayName": "Result Stat Item",
+    "icon": "chart-bubble"
+  },
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "expanded_content": {
+      "type": "richtext"
+    },
+    "badge_label": {
+      "type": "string",
+      "default": "Result"
+    },
+    "badge_text": {
+      "type": "string"
+    },
+    "closing_text": {
+      "type": "text"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "sub_heading": {
+      "type": "string"
+    }
+  }
+}

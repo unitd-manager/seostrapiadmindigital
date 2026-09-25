@@ -17,6 +17,15 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "cta_link_label": {
+      "type": "string"
+    },
+    "cta_link_url": {
+      "type": "string"
+    },
+    "cta_text": {
+      "type": "string"
     }
   }
 }

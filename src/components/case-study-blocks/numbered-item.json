@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_case_study_blocks_numbered_items",
+  "info": { "displayName": "Numbered Item", "icon": "list" },
+  "attributes": {
+    "number": { "type": "string", "required": true },
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text" },
+    "more_link_label": { "type": "string", "default": "Read More" },
+    "more_link_url": { "type": "string" }
+  }
+}
