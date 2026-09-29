@@ -22,6 +22,10 @@
     "error_message": {
       "type": "string"
     },
+    "Publish": {
+      "type": "boolean",
+      "default": true
+    },
     "submit_label": {
       "type": "string"
     }

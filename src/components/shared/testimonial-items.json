@@ -22,6 +22,10 @@
     },
     "rating": {
       "type": "integer"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   },
   "config": {}

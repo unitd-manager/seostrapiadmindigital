@@ -26,6 +26,10 @@
     },
     "highlight_title": {
       "type": "string"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

@@ -11,6 +11,10 @@
     "title": {
       "type": "string"
     },
+    "Publish": {
+      "type": "boolean",
+      "default": true
+    },
     "subtitle": {
       "type": "string"
     },

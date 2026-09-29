@@ -17,6 +17,10 @@
     },
     "highlight_text": {
       "type": "string"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

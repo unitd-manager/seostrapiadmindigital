@@ -18,6 +18,10 @@
     },
     "point3": {
       "type": "string"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

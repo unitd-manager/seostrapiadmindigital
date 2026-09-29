@@ -7,6 +7,10 @@
   "attributes": {
     "point": {
       "type": "string"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   },
   "config": {}

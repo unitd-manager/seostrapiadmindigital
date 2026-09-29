@@ -13,6 +13,10 @@
     },
     "icon": {
       "type": "string"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   },
   "config": {}

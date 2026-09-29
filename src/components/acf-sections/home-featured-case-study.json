@@ -23,6 +23,10 @@
       "type": "component",
       "component": "shared.pricing-cards",
       "repeatable": true
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

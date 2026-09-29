@@ -9,6 +9,10 @@
     },
     "session_description": {
       "type": "richtext"
-    }
+    },
+    "Publish": {
+  "type": "boolean",
+  "default": true
+}
   }
 }

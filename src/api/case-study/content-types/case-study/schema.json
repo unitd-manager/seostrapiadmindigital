@@ -6,6 +6,10 @@
     "singularName": "case-study",
     "pluralName": "case-studies"
   },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string"
@@ -20,29 +24,9 @@
     "industry": {
       "type": "string"
     },
-    "challenge": {
-      "type": "richtext"
-    },
-    "solution": {
-      "type": "richtext"
-    },
-    "results": {
-      "type": "richtext"
-    },
-    "featuredImage": {
-      "type": "media",
-      "multiple": false
-    },
-    "seo": {
-      "type": "component",
-      "component": "shared.seo",
-      "repeatable": false
-    },
-
     "eyebrow": {
       "type": "string"
     },
-
     "hero_title": {
       "type": "string"
     },
@@ -54,20 +38,18 @@
     },
     "hero_stats": {
       "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.stat-item"
+      "component": "case-study-blocks.stat-item",
+      "repeatable": true
     },
-
     "overview_title": {
       "type": "string",
       "default": "Overview"
     },
     "overview_points": {
       "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.bullet-item"
+      "component": "case-study-blocks.bullet-item",
+      "repeatable": true
     },
-
     "challenge_title": {
       "type": "string",
       "default": "Challenge"
@@ -77,10 +59,9 @@
     },
     "challenge_items": {
       "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.numbered-item"
+      "component": "case-study-blocks.numbered-item",
+      "repeatable": true
     },
-
     "strategy_title": {
       "type": "string",
       "default": "SEO Strategy Implemented"
@@ -88,23 +69,11 @@
     "strategy_intro": {
       "type": "text"
     },
-    "strategy_featured_title": {
-      "type": "string"
-    },
-    "strategy_featured_description": {
-      "type": "text"
-    },
-    "strategy_key_improvements": {
-      "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.bullet-item"
-    },
     "strategy_phases": {
       "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.phase-item"
+      "component": "case-study-blocks.phase-item",
+      "repeatable": true
     },
-
     "results_title": {
       "type": "string",
       "default": "Results"
@@ -114,10 +83,9 @@
     },
     "results_stats": {
       "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.result-stat-item"
+      "component": "case-study-blocks.result-stat-item",
+      "repeatable": true
     },
-
     "why_worked_title": {
       "type": "string",
       "default": "Why The Strategy Worked"
@@ -127,13 +95,12 @@
     },
     "why_worked_points": {
       "type": "component",
-      "repeatable": true,
-      "component": "case-study-blocks.bullet-item"
+      "component": "case-study-blocks.bullet-item",
+      "repeatable": true
     },
     "why_worked_closing": {
       "type": "richtext"
     },
-
     "looking_ahead_title": {
       "type": "string",
       "default": "Looking Ahead"
@@ -141,7 +108,6 @@
     "looking_ahead_content": {
       "type": "richtext"
     },
-
     "conclusion_title": {
       "type": "string",
       "default": "Conclusion"
@@ -149,18 +115,43 @@
     "conclusion_content": {
       "type": "richtext"
     },
-    
-"key_results_title": { "type": "string" },
-"key_results_stats": {
-  "type": "component",
-  "repeatable": true,
-  "component": "case-study-blocks.stat-item"
-},
-"key_results_highlight_heading": { "type": "string" },
-"key_results_highlight_label": { "type": "string" },
-
-"services_provided": { "type": "text" },
-"agency": { "type": "string" },
-"campaign_focus": { "type": "text" }
-}
+    "key_results_title": {
+      "type": "string"
+    },
+    "key_results_stats": {
+      "type": "component",
+      "component": "case-study-blocks.stat-item",
+      "repeatable": true
+    },
+    "key_results_highlight_heading": {
+      "type": "string"
+    },
+    "key_results_highlight_label": {
+      "type": "string"
+    },
+    "services_provided": {
+      "type": "text"
+    },
+    "agency": {
+      "type": "string"
+    },
+    "campaign_focus": {
+      "type": "text"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
 }

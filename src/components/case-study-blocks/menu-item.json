@@ -10,7 +10,11 @@
     },
     "next_link": {
       "type": "string"
-    }
+    },
+    "Publish": {
+  "type": "boolean",
+  "default": true
+}
   },
   "config": {}
 }

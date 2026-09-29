@@ -24,77 +24,22 @@ const PAGE_TYPE_TO_ZONE_FIELD = {
   resource: 'resourceSections',
 };
 
-const ABOUT_COMPONENTS = new Set([
-  'acf-sections.about-banner-layout',
-  'acf-sections.about-awards-section',
-  'acf-sections.about-partner-section',
-  'acf-sections.about-client-logo-section',
-  'acf-sections.about-team-section',
-  'acf-sections.about-company-ethos-section',
-  'acf-sections.about-grid-layout',
-  'acf-sections.about-diversity-section',
-  'acf-sections.about-training-section',
-  'acf-sections.about-strategic-highlights-section',
-  'acf-sections.about-latest-updates-section',
-  'acf-sections.about-location-section',
-]);
+const ABOUT_COMPONENTS = new Set();
 
 const CAREER_COMPONENTS = new Set([
-  'acf-sections.team-highlight-block',
-  'acf-sections.hiring-process-steps-layout',
-  'acf-sections.career-openings-section',
-  'acf-sections.form-with-contact-info',
-  'acf-sections.contact-location-section',
   'acf-sections.contact-form',
   'acf-sections.seo-audit-form',
 ]);
 
 const RESOURCE_COMPONENTS = new Set([
-  'acf-sections.latest-webinars',
-  'acf-sections.featured-webinars-media',
-  'acf-sections.resource-grid-layout',
-  'acf-sections.use-cases-grid',
-  'acf-sections.use-case-single',
-  'acf-sections.white-paper-single',
-  'acf-sections.usecase-industry-filter',
-  'acf-sections.usecase-highlight-block',
-  'acf-sections.timeline-sections',
   'acf-sections.session-item-sections',
-  'acf-sections.roundtable-sessions-sections',
 ]);
 
-const BLOG_COMPONENTS = new Set([
-  'acf-sections.blog-layout',
-  'acf-sections.latest-post',
-  'acf-sections.common-posts-slider',
-  'acf-sections.classic-post-slider',
-]);
+const BLOG_COMPONENTS = new Set();
 
 const SERVICE_COMPONENTS = new Set([
-  'acf-sections.home-industry-automation-solutions',
-  'acf-sections.service-overview',
-  'acf-sections.solutions-key-benefits',
   'acf-sections.industry-highlight-block',
-  'acf-sections.text-image-split-block',
-  'acf-sections.image-with-keypoints',
-  'acf-sections.image-form-section',
-  'acf-sections.ai-tech-overview',
-  'acf-sections.text-table-block',
   'acf-sections.industry-ai-use-cases',
-  'acf-sections.benefits-grid-layout',
-  'acf-sections.step-cards-section',
-  'acf-sections.solution-hero-banner-with-cta',
-  'acf-sections.solutions-feature-block',
-  'acf-sections.healthcare-automation-solutions',
-  'acf-sections.collaborations-section',
-  'acf-sections.partner-highlight-section',
-  'acf-sections.healthcare-automation-tabs',
-  'acf-sections.automation-cta-block',
-  'acf-sections.package-card-section',
-  'acf-sections.kognitos-benefits-section',
-  'acf-sections.why-kognitos-section',
-  'acf-sections.how-it-works-section',
-  'acf-sections.our-capabilities-section',
 ]);
 
 const stats = {

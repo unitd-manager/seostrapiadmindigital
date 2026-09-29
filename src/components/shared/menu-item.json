@@ -12,6 +12,10 @@
     },
     "label": {
       "type": "string"
-    }
+    },
+       "Publish": {
+  "type": "boolean",
+  "default": true
+}
   }
 }

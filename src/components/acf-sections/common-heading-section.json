@@ -31,6 +31,10 @@
     },
     "description": {
       "type": "blocks"
+    },
+    "Publish": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

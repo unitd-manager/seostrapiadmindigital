@@ -19,6 +19,10 @@
     "highlight_description": {
       "type": "blocks"
     },
+    "Publish": {
+      "type": "boolean",
+      "default": true
+    },
     "delay_points": {
       "type": "component",
       "component": "shared.delay-points",

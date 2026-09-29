@@ -4,22 +4,6 @@
     "displayName": "Banner Layout"
   },
   "attributes": {
-    "page_type": {
-      "type": "enumeration",
-      "enum": [
-        "home",
-        "home_two",
-        "inner",
-        "service",
-        "solution_banner",
-        "partner",
-        "kognitos",
-        "resources",
-        "platform",
-        "use_case",
-        "best_uipath_partner"
-      ]
-    },
     "eyebrow": {
       "type": "string"
     },
@@ -46,6 +30,10 @@
       "type": "component",
       "component": "shared.stats",
       "repeatable": true
-    }
+    },
+    "Publish": {
+  "type": "boolean",
+  "default": true
+}
   }
 }

@@ -10,8 +10,9 @@
     "eyebrow": {
       "type": "string"
     },
-    "description": {
-      "type": "blocks"
+    "Publish": {
+      "type": "boolean",
+      "default": true
     },
     "stats": {
       "type": "component",
