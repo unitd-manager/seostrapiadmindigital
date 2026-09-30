@@ -41,6 +41,11 @@
         }
       }
     },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    },
     "pageBuilder": {
       "type": "dynamiczone",
       "configurable": false,

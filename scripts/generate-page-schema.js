@@ -70,6 +70,12 @@ function buildPageSchema() {
 
       ...createSectionAttributes(),
 
+      seo: {
+        type: 'component',
+        component: 'shared.seo',
+        repeatable: false,
+      },
+
       pageBuilder: createDynamicZone(
         PAGE_BUILDER_COMPONENTS,
         {

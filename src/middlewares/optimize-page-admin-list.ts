@@ -13,6 +13,8 @@ const pageComponentTypeCache = new Map<
 >();
 
 const PAGE_COMPONENT_TYPE_CACHE_TTL_MS = 30_000;
+// The SEO component (with its meta / OG images) must always be loaded in the editor.
+const SEO_POPULATE = { populate: '*' } as const;
 const DEFAULT_LEAN_ADMIN_DOCUMENT_POPULATE = false;
 const DEFAULT_DEEP_COMPONENT_POPULATE = false;
 
@@ -159,6 +161,7 @@ const buildPopulateForUsedPageBuilderTypes = (componentTypes: string[]) => {
       pageBuilder: {
         populate: useDeepComponentPopulate ? '*' : {},
       },
+      seo: SEO_POPULATE,
     };
   }
 
@@ -171,6 +174,7 @@ const buildPopulateForUsedPageBuilderTypes = (componentTypes: string[]) => {
     pageBuilder: {
       on,
     },
+    seo: SEO_POPULATE,
   };
 };
 
@@ -178,6 +182,7 @@ const buildLeanPageDocumentPopulate = () => ({
   // Populate the dynamic zone itself, but avoid recursive nested relation hydration
   // for every component type. This dramatically reduces admin document query cost.
   pageBuilder: true,
+  seo: SEO_POPULATE,
 });
 
 const optimizePageDocumentPopulate = async (

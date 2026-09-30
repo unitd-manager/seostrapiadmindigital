@@ -4,17 +4,21 @@
   "info": {
     "displayName": "Redirect",
     "singularName": "redirect",
-    "pluralName": "redirects"
+    "pluralName": "redirects",
+    "description": "Old URL -> new URL redirects. 'permanent' = 301, 'temporary' = 302."
   },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
   "attributes": {
-    "oldUrl": {
-      "type": "string"
-    },
-    "newUrl": {
-      "type": "string"
-    },
+    "source": { "type": "string", "required": true, "maxLength": 500 },
+    "destination": { "type": "string", "required": true, "maxLength": 1000 },
     "statusCode": {
-      "type": "integer"
-    }
+      "type": "enumeration",
+      "enum": ["permanent", "temporary"],
+      "default": "permanent",
+      "required": true
+    },
+    "enabled": { "type": "boolean", "default": true, "required": true },
+    "notes": { "type": "text" }
   }
 }

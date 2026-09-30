@@ -7,6 +7,7 @@ import type {
 
 import WordPressPostsIcon from './components/WordPressPostsIcon';
 import WordPressPostsTable from './components/WordPressPostsTable';
+import SeoSummary from './seo/SeoSummary';
 
 const PLUGIN_ID = 'qbo-wordpress-posts';
 
@@ -30,6 +31,19 @@ const WordPressPostsPanel: PanelComponent = ({ model, document }: PanelComponent
         enabled={postDocument.displayWpData ?? false}
       />
     ),
+  };
+};
+
+const SEO_MODELS = ['api::page.page', 'api::case-study.case-study'];
+
+const SeoSummaryPanel: PanelComponent = ({ model, document }: PanelComponentProps) => {
+  if (!SEO_MODELS.includes(model)) {
+    return null;
+  }
+
+  return {
+    title: 'SEO Summary',
+    content: <SeoSummary seo={(document as { seo?: any } | undefined)?.seo} />,
   };
 };
 
@@ -64,6 +78,6 @@ export default {
     const apis = app.getPlugin('content-manager')
       .apis as ContentManagerPlugin['config']['apis'];
 
-    apis.addEditViewSidePanel([WordPressPostsPanel]);
+    apis.addEditViewSidePanel([WordPressPostsPanel, SeoSummaryPanel]);
   },
 };
