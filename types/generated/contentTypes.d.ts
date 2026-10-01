@@ -566,19 +566,16 @@ export interface ApiCheckoutRecordCheckoutRecord
       'api::checkout-record.checkout-record'
     > &
       Schema.Attribute.Private;
-    provider: Schema.Attribute.Enumeration<['razorpay']> &
-      Schema.Attribute.DefaultTo<'razorpay'>;
+    provider: Schema.Attribute.Enumeration<['stripe']> &
+      Schema.Attribute.DefaultTo<'stripe'>;
     publishedAt: Schema.Attribute.DateTime;
     rawRequest: Schema.Attribute.JSON;
-    razorpayOrderId: Schema.Attribute.String;
-    razorpayPaymentId: Schema.Attribute.String;
-    razorpaySignature: Schema.Attribute.Text;
     source: Schema.Attribute.String;
     sourcePage: Schema.Attribute.String;
     status: Schema.Attribute.Enumeration<
       [
         'initiated',
-        'order_created',
+        'checkout_session_created',
         'paid',
         'verification_failed',
         'payment_failed',
@@ -586,6 +583,8 @@ export interface ApiCheckoutRecordCheckoutRecord
       ]
     > &
       Schema.Attribute.DefaultTo<'initiated'>;
+    stripeCheckoutSessionId: Schema.Attribute.String;
+    stripePaymentIntentId: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

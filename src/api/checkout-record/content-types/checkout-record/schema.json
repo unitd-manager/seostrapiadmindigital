@@ -17,15 +17,15 @@
     "provider": {
       "type": "enumeration",
       "enum": [
-        "razorpay"
+        "stripe"
       ],
-      "default": "razorpay"
+      "default": "stripe"
     },
     "status": {
       "type": "enumeration",
       "enum": [
         "initiated",
-        "order_created",
+        "checkout_session_created",
         "paid",
         "verification_failed",
         "payment_failed",
@@ -66,14 +66,11 @@
     "source": {
       "type": "string"
     },
-    "razorpayOrderId": {
+    "stripeCheckoutSessionId": {
       "type": "string"
     },
-    "razorpayPaymentId": {
+    "stripePaymentIntentId": {
       "type": "string"
-    },
-    "razorpaySignature": {
-      "type": "text"
     },
     "gatewayOrderPayload": {
       "type": "json"

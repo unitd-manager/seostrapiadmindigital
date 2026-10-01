@@ -51,6 +51,20 @@ The script imports WordPress pages, posts, categories, tags, authors, featured i
 
 Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
 
+
+## 💳 Stripe checkout
+
+The website creates Stripe Checkout Sessions through Strapi. Add the following server-only variables to the backend `.env` (or your deployment environment):
+
+```env
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_CURRENCY=usd
+```
+
+Use a Stripe test secret key for local testing and a live secret key only in the production backend environment. Never put `STRIPE_SECRET_KEY` in the frontend or commit it. The frontend sends the package identifiers and customer details to `POST /api/checkout/create-stripe-session`; Strapi resolves prices from the published home-page pricing cards, creates the checkout record and Stripe session, and returns the hosted Checkout URL. After payment, `POST /api/checkout/verify-stripe-session` retrieves the session directly from Stripe and marks the record paid only when Stripe confirms payment.
+
+The Stripe SDK is installed as a backend dependency. Restart/redeploy Strapi after setting the environment variables or changing the checkout-record schema.
+
 ```
 yarn strapi deploy
 ```

@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import axios from 'axios';
+import Stripe from 'stripe';
 import type { Core } from '@strapi/strapi';
 
 type CheckoutCustomer = {
@@ -25,11 +25,9 @@ type CreateOrderPayload = {
   };
 };
 
-type VerifyPaymentPayload = {
+type VerifyStripeSessionPayload = {
   checkoutReference?: string;
-  razorpay_order_id?: string;
-  razorpay_payment_id?: string;
-  razorpay_signature?: string;
+  sessionId?: string;
 };
 
 type PricingCard = {
@@ -48,7 +46,12 @@ type ResolvedCheckoutItem = {
   duration: string;
 };
 
-const RAZORPAY_API_BASE_URL = 'https://api.razorpay.com/v1';
+export class CheckoutServiceError extends Error {
+  constructor(message: string, public readonly status: number) {
+    super(message);
+    this.name = 'CheckoutServiceError';
+  }
+}
 
 const normalizePaymentKey = (value?: string | null) =>
   (value || '')
@@ -75,30 +78,40 @@ const buildCheckoutReference = () => {
   return `chk_${Date.now()}_${randomPart}`;
 };
 
-const getBackendBaseUrl = () => {
-  const explicitUrl =
-    process.env.STRAPI_PUBLIC_URL ||
-    process.env.PUBLIC_URL ||
-    process.env.BACKEND_URL;
-
-  if (explicitUrl) {
-    return explicitUrl.replace(/\/$/, '');
+const getStripeClient = () => {
+  const secretKey = process.env.STRIPE_SECRET_KEY || '';
+  if (!secretKey) {
+    throw new CheckoutServiceError('Stripe is not configured on the server. Set STRIPE_SECRET_KEY in the Strapi backend environment.', 503);
   }
-
-  const port = process.env.PORT || '1337';
-  return `http://127.0.0.1:${port}`;
+  return new Stripe(secretKey);
 };
 
-const getRazorpayConfig = () => {
-  const keyId = process.env.RAZORPAY_KEY_ID || '';
-  const keySecret = process.env.RAZORPAY_KEY_SECRET || '';
-  const currency = process.env.RAZORPAY_CURRENCY || 'USD';
+const getStripeInterval = (duration: string) => {
+  const normalized = duration.trim().toLowerCase();
+  if (/one[- ]?(time|off)|once|lifetime|single[- ]?payment/.test(normalized)) return null;
+  if (/year|annual|annually|\byr\b/.test(normalized)) return 'year' as const;
+  if (/week|weekly|\bwk\b/.test(normalized)) return 'week' as const;
+  if (/day|daily/.test(normalized)) return 'day' as const;
+  return 'month' as const;
+};
 
-  return {
-    keyId,
-    keySecret,
-    currency,
-  };
+const getSafeReturnUrl = (value: string, checkoutReference: string, sessionId = false) => {
+  let returnUrl: URL;
+  try {
+    returnUrl = new URL(value);
+  } catch {
+    throw new Error('Checkout success and cancel URLs must be absolute URLs.');
+  }
+  if (!['http:', 'https:'].includes(returnUrl.protocol)) {
+    throw new Error('Checkout return URL must use HTTP or HTTPS.');
+  }
+  returnUrl.searchParams.set('checkout_reference', checkoutReference);
+  if (!sessionId) return returnUrl.toString();
+
+  const hashIndex = returnUrl.href.indexOf('#');
+  const hash = hashIndex === -1 ? '' : returnUrl.href.slice(hashIndex);
+  const baseUrl = hashIndex === -1 ? returnUrl.href : returnUrl.href.slice(0, hashIndex);
+  return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}session_id={CHECKOUT_SESSION_ID}${hash}`;
 };
 
 const extractPricingCards = (pageBuilder: any[] = []) => {
@@ -158,70 +171,58 @@ const fetchPricingCardsFromHomePage = async () => {
 };
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
-  async createOrder(payload: CreateOrderPayload) {
-    const { keyId, keySecret, currency } = getRazorpayConfig();
-
-    if (!keyId || !keySecret) {
-      throw new Error('Razorpay keys are not configured in the backend environment.');
-    }
-
+  async createStripeSession(payload: CreateOrderPayload) {
+    const stripe = getStripeClient();
     const customer = payload?.customer || {};
     const order = payload?.order || {};
     const items = Array.isArray(order.items) ? order.items : [];
 
     if (!customer.name?.trim() || !customer.email?.trim()) {
-      throw new Error('Customer name and email are required.');
+      throw new CheckoutServiceError('Customer name and email are required.', 400);
     }
-
-    if (items.length === 0) {
-      throw new Error('At least one checkout item is required.');
+    if (items.length === 0) throw new CheckoutServiceError('At least one checkout item is required.', 400);
+    if (!order.successUrl || !order.cancelUrl) {
+      throw new CheckoutServiceError('Checkout success and cancel URLs are required.', 400);
     }
 
     const pricingCards = await fetchPricingCardsFromHomePage();
     if (pricingCards.length === 0) {
-      throw new Error('No pricing cards were found in the published home page.');
+      throw new CheckoutServiceError('No pricing cards were found in the published home page.', 503);
     }
 
     const resolvedItems: ResolvedCheckoutItem[] = items.map((item) => {
       const matchedCard = findMatchingPricingCard(pricingCards, item);
-
       if (!matchedCard) {
-        throw new Error(`Could not match checkout item "${item.name || item.id || 'unknown'}" to CMS pricing.`);
+        throw new CheckoutServiceError(`Could not match checkout item "${item.name || item.id || 'unknown'}" to CMS pricing.`, 400);
       }
-
       const quantity = Math.max(1, Math.trunc(Number(item.quantity) || 1));
       const unitAmountMajor = parsePrice(matchedCard.price);
       if (unitAmountMajor <= 0) {
-        throw new Error(`Invalid CMS price for "${(matchedCard.package_title || matchedCard.title) || 'package'}".`);
+        throw new CheckoutServiceError(`Invalid CMS price for "${(matchedCard.package_title || matchedCard.title) || 'package'}".`, 400);
       }
-
       return {
         key: normalizePaymentKey(matchedCard.package_title || matchedCard.title),
         title: (matchedCard.package_title || matchedCard.title) || 'Package',
         quantity,
         unitAmountMajor,
         lineAmountMajor: unitAmountMajor * quantity,
-        duration: (matchedCard.price_plan || matchedCard.duration) || 'mo',
+        duration: (matchedCard.price_plan || matchedCard.duration) || 'monthly',
       };
     });
 
-    const totalAmountMajor = resolvedItems.reduce(
-      (sum, item) => sum + item.lineAmountMajor,
-      0
-    );
-    const amountMinor = toMinorUnits(totalAmountMajor);
-    const checkoutReference = buildCheckoutReference();
-    
-    console.log('Checkout Service - Pricing Cards:', pricingCards);
-    console.log('Checkout Service - Resolved Items:', resolvedItems);
-    console.log('Checkout Service - Total Amount Major:', totalAmountMajor);
-    console.log('Checkout Service - Amount Minor:', amountMinor);
-    console.log('Checkout Service - Currency:', currency);
+    const intervals = resolvedItems.map((item) => getStripeInterval(item.duration));
+    if (intervals.some((interval) => interval !== intervals[0])) {
+      throw new CheckoutServiceError('One Stripe checkout cannot mix recurring and one-time packages.', 400);
+    }
 
+    const currency = (process.env.STRIPE_CURRENCY || 'usd').toLowerCase();
+    const checkoutReference = buildCheckoutReference();
+    const totalAmountMajor = resolvedItems.reduce((sum, item) => sum + item.lineAmountMajor, 0);
+    const amountMinor = toMinorUnits(totalAmountMajor);
     const checkoutRecord = await strapi.documents('api::checkout-record.checkout-record').create({
       data: {
         checkoutReference,
-        provider: 'razorpay',
+        provider: 'stripe',
         status: 'initiated',
         customerName: customer.name.trim(),
         customerEmail: customer.email.trim(),
@@ -238,127 +239,86 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       },
     });
 
-    const razorpayResponse = await axios.post(
-      `${RAZORPAY_API_BASE_URL}/orders`,
-      {
-        amount: amountMinor,
-        currency,
-        receipt: checkoutReference,
-        notes: {
-          checkoutReference,
-          customerEmail: customer.email.trim(),
-          customerName: customer.name.trim(),
-        },
+    const isSubscription = intervals[0] !== null;
+    let session: Stripe.Response<Stripe.Checkout.Session>;
+    try {
+      session = await stripe.checkout.sessions.create({
+      mode: isSubscription ? 'subscription' : 'payment',
+      customer_email: customer.email.trim(),
+      client_reference_id: checkoutReference,
+      success_url: getSafeReturnUrl(order.successUrl, checkoutReference, true),
+      cancel_url: getSafeReturnUrl(order.cancelUrl, checkoutReference),
+      billing_address_collection: 'required',
+      allow_promotion_codes: true,
+      metadata: {
+        checkoutReference,
+        customerName: customer.name.trim(),
+        company: customer.company?.trim() || '',
+        country: customer.country?.trim() || '',
       },
-      {
-        auth: {
-          username: keyId,
-          password: keySecret,
+      ...(isSubscription ? { subscription_data: { metadata: { checkoutReference } } } : {}),
+      line_items: resolvedItems.map((item) => ({
+        quantity: item.quantity,
+        price_data: {
+          currency,
+          unit_amount: toMinorUnits(item.unitAmountMajor),
+          product_data: { name: item.title },
+          ...(isSubscription ? { recurring: { interval: intervals[0]! } } : {}),
         },
-      }
-    );
+      })),
+      });
+    } catch (error) {
+      strapi.log.error('Stripe Checkout Session creation failed', error);
+      throw new CheckoutServiceError(
+        'Stripe could not create checkout. Verify the backend Stripe key, currency, and account configuration.',
+        502,
+      );
+    }
 
-    const razorpayOrder = razorpayResponse.data;
+    if (!session.url) throw new CheckoutServiceError('Stripe did not return a checkout URL.', 502);
 
     await strapi.documents('api::checkout-record.checkout-record').update({
       documentId: checkoutRecord.documentId,
       data: {
-        status: 'order_created',
-        razorpayOrderId: razorpayOrder.id,
-        gatewayOrderPayload: razorpayOrder,
+        status: 'checkout_session_created',
+        stripeCheckoutSessionId: session.id,
+        gatewayOrderPayload: { id: session.id, mode: session.mode, url: session.url },
       },
     });
-
-    return {
-      checkoutReference,
-      recordId: checkoutRecord.documentId,
-      key: keyId,
-      currency,
-      amount: amountMinor,
-      amountMajor: totalAmountMajor,
-      orderId: razorpayOrder.id,
-      customer: {
-        name: customer.name.trim(),
-        email: customer.email.trim(),
-        company: customer.company?.trim() || '',
-        country: customer.country?.trim() || '',
-      },
-      items: resolvedItems,
-    };
+    return { checkoutReference, sessionId: session.id, url: session.url };
   },
 
-  async verifyPayment(payload: VerifyPaymentPayload) {
-    const { keySecret } = getRazorpayConfig();
-
-    if (!keySecret) {
-      throw new Error('Razorpay secret is not configured in the backend environment.');
-    }
-
+  async verifyStripeSession(payload: VerifyStripeSessionPayload) {
+    const stripe = getStripeClient();
     const checkoutReference = payload.checkoutReference?.trim();
-    const razorpayOrderId = payload.razorpay_order_id?.trim();
-    const razorpayPaymentId = payload.razorpay_payment_id?.trim();
-    const razorpaySignature = payload.razorpay_signature?.trim();
-
-    if (!checkoutReference || !razorpayOrderId || !razorpayPaymentId || !razorpaySignature) {
-      throw new Error('Missing Razorpay verification payload.');
+    const sessionId = payload.sessionId?.trim();
+    if (!checkoutReference || !sessionId) {
+      throw new CheckoutServiceError('Checkout reference and Stripe session ID are required.', 400);
     }
 
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if (session.metadata?.checkoutReference !== checkoutReference || session.client_reference_id !== checkoutReference) {
+      throw new Error('Stripe session does not match this checkout.');
+    }
     const records = await strapi.documents('api::checkout-record.checkout-record').findMany({
-      filters: {
-        checkoutReference,
-      },
-      pagination: {
-        page: 1,
-        pageSize: 1,
-      },
+      filters: { checkoutReference, provider: 'stripe', stripeCheckoutSessionId: sessionId },
+      pagination: { page: 1, pageSize: 1 },
     });
-
     const checkoutRecord = Array.isArray(records) ? records[0] : null;
-    if (!checkoutRecord) {
-      throw new Error('Checkout record not found.');
+    if (!checkoutRecord) throw new Error('Stripe checkout record not found.');
+    if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') {
+      throw new Error('Stripe has not confirmed payment for this checkout.');
     }
 
-    const expectedSignature = crypto
-      .createHmac('sha256', keySecret)
-      .update(`${razorpayOrderId}|${razorpayPaymentId}`)
-      .digest('hex');
-
-    if (expectedSignature !== razorpaySignature) {
-      await strapi.documents('api::checkout-record.checkout-record').update({
-        documentId: checkoutRecord.documentId,
-        data: {
-          status: 'verification_failed',
-          razorpayOrderId: razorpayOrderId,
-          razorpayPaymentId: razorpayPaymentId,
-          razorpaySignature,
-          gatewayVerifyPayload: payload,
-          errorMessage: 'Invalid Razorpay signature.',
-        },
-      });
-
-      throw new Error('Razorpay signature verification failed.');
-    }
-
-    const paymentResponse = await axios.get(
-      `${RAZORPAY_API_BASE_URL}/payments/${encodeURIComponent(razorpayPaymentId)}`,
-      {
-        auth: {
-          username: process.env.RAZORPAY_KEY_ID || '',
-          password: keySecret,
-        },
-      }
-    );
-
-    const paymentPayload = paymentResponse.data;
-
+    const paymentIntentId = typeof session.payment_intent === 'string'
+      ? session.payment_intent
+      : session.payment_intent?.id || '';
     await strapi.documents('api::checkout-record.checkout-record').update({
       documentId: checkoutRecord.documentId,
       data: {
         status: 'paid',
-        razorpayOrderId: razorpayOrderId,
-        razorpayPaymentId: razorpayPaymentId,
-        razorpaySignature,
-        gatewayVerifyPayload: paymentPayload,
+        stripePaymentIntentId: paymentIntentId,
+        gatewayVerifyPayload: { id: session.id, payment_status: session.payment_status, payment_intent: paymentIntentId },
         verifiedAt: new Date().toISOString(),
         errorMessage: '',
       },
@@ -367,11 +327,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     return {
       verified: true,
       checkoutReference,
-      razorpayOrderId,
-      razorpayPaymentId,
-      amountMinor: checkoutRecord.amountMinor,
-      amountMajor: checkoutRecord.amountMajor,
-      currency: checkoutRecord.currency,
+      stripeCheckoutSessionId: session.id,
+      stripePaymentIntentId: paymentIntentId,
+      amountMinor: session.amount_total ?? checkoutRecord.amountMinor,
+      amountMajor: session.amount_total !== null ? session.amount_total / 100 : checkoutRecord.amountMajor,
+      currency: session.currency || checkoutRecord.currency,
       items: checkoutRecord.items || [],
       customerName: checkoutRecord.customerName || '',
       customerEmail: checkoutRecord.customerEmail || '',

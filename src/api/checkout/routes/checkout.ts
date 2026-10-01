@@ -2,8 +2,8 @@ export default {
   routes: [
     {
       method: 'POST',
-      path: '/checkout/create-order',
-      handler: 'api::checkout.checkout.createOrder',
+      path: '/checkout/create-stripe-session',
+      handler: 'api::checkout.checkout.createStripeSession',
       config: {
         policies: [],
         auth: false,
@@ -11,8 +11,8 @@ export default {
     },
     {
       method: 'POST',
-      path: '/checkout/verify-payment',
-      handler: 'api::checkout.checkout.verifyPayment',
+      path: '/checkout/verify-stripe-session',
+      handler: 'api::checkout.checkout.verifyStripeSession',
       config: {
         policies: [],
         auth: false,
