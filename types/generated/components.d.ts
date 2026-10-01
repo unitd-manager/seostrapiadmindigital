@@ -533,8 +533,33 @@ export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
     displayName: 'SEO';
+    icon: 'search';
   };
-  attributes: {};
+  attributes: {
+    canonicalUrl: Schema.Attribute.String;
+    focusKeyword: Schema.Attribute.String;
+    keywords: Schema.Attribute.Text;
+    metaDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    metaImage: Schema.Attribute.Media<'images'>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    ogDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320;
+      }>;
+    ogImage: Schema.Attribute.Media<'images'>;
+    ogTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    twitterCard: Schema.Attribute.Enumeration<['summary', 'summaryLarge']> &
+      Schema.Attribute.DefaultTo<'summaryLarge'>;
+  };
 }
 
 export interface SharedSeoReality extends Struct.ComponentSchema {

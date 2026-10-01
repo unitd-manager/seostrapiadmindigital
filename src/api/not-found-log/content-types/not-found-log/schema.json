@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "not_found_logs",
+  "info": {
+    "displayName": "Not Found Log",
+    "singularName": "not-found-log",
+    "pluralName": "not-found-logs",
+    "description": "One row per missing URL with a hit counter."
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "path": { "type": "string", "required": true, "unique": true, "maxLength": 500 },
+    "hitCount": { "type": "integer", "required": true, "default": 1, "min": 0 },
+    "referrer": { "type": "string", "maxLength": 1000 },
+    "userAgent": { "type": "string", "maxLength": 500 },
+    "firstSeenAt": { "type": "datetime" },
+    "lastSeenAt": { "type": "datetime" },
+    "resolved": { "type": "boolean", "default": false, "required": true }
+  }
+}

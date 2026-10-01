@@ -11,6 +11,9 @@ export default factories.createCoreController(
           pageBuilder: {
             populate: '*',
           },
+          seo: {
+            populate: '*',
+          },
         };
       }
 
@@ -25,6 +28,9 @@ export default factories.createCoreController(
       if (!ctx.query.populate) {
         ctx.query.populate = {
           pageBuilder: {
+            populate: '*',
+          },
+          seo: {
             populate: '*',
           },
         };
