@@ -302,6 +302,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     }
     const records = await strapi.documents('api::checkout-record.checkout-record').findMany({
       filters: { checkoutReference, provider: 'stripe', stripeCheckoutSessionId: sessionId },
+      populate: { items: true },
       pagination: { page: 1, pageSize: 1 },
     });
     const checkoutRecord = Array.isArray(records) ? records[0] : null;

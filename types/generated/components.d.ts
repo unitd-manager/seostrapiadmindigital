@@ -461,6 +461,21 @@ export interface CaseStudyBlocksStatItem extends Struct.ComponentSchema {
   };
 }
 
+export interface CheckoutLineItem extends Struct.ComponentSchema {
+  collectionName: 'components_checkout_line_items';
+  info: {
+    displayName: 'Checkout line item';
+  };
+  attributes: {
+    duration: Schema.Attribute.String;
+    key: Schema.Attribute.String;
+    lineAmountMajor: Schema.Attribute.Decimal;
+    quantity: Schema.Attribute.Integer;
+    title: Schema.Attribute.String;
+    unitAmountMajor: Schema.Attribute.Decimal;
+  };
+}
+
 export interface SharedConcernList extends Struct.ComponentSchema {
   collectionName: 'components_shared_concern_lists';
   info: {
@@ -634,6 +649,7 @@ declare module '@strapi/strapi' {
       'case-study-blocks.phase-item': CaseStudyBlocksPhaseItem;
       'case-study-blocks.result-stat-item': CaseStudyBlocksResultStatItem;
       'case-study-blocks.stat-item': CaseStudyBlocksStatItem;
+      'checkout.line-item': CheckoutLineItem;
       'shared.concern-list': SharedConcernList;
       'shared.delay-points': SharedDelayPoints;
       'shared.feature-list': SharedFeatureList;

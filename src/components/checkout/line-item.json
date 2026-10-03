@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_checkout_line_items",
+  "info": {
+    "displayName": "Checkout line item"
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "lineAmountMajor": {
+      "type": "decimal"
+    },
+    "unitAmountMajor": {
+      "type": "decimal"
+    }
+  },
+  "config": {}
+}

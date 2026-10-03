@@ -58,7 +58,9 @@
       "type": "integer"
     },
     "items": {
-      "type": "json"
+      "type": "component",
+      "component": "checkout.line-item",
+      "repeatable": true
     },
     "sourcePage": {
       "type": "string"

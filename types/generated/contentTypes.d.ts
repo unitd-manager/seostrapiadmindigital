@@ -559,7 +559,7 @@ export interface ApiCheckoutRecordCheckoutRecord
     gatewayOrderPayload: Schema.Attribute.JSON;
     gatewayVerifyPayload: Schema.Attribute.JSON;
     itemCount: Schema.Attribute.Integer;
-    items: Schema.Attribute.JSON;
+    items: Schema.Attribute.Component<'checkout.line-item', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
